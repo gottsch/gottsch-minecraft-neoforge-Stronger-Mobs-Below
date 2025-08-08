@@ -1,0 +1,10 @@
+{
+  "homepage": "https://legacy.curseforge.com/minecraft/mc-mods/stronger-mobs-below",
+  "promos": {
+    "1.21.1-latest": "1.0.0",
+    "1.21.1-recommended": "1.0.0"
+  },
+  "1.21.1": {
+    "1.0.0": "See https://raw.githubusercontent.com/gottsch/gottsch-minecraft-neoforge-Stronger-Mobs-Below/1.21.1-main-server/CHANGELOG.md",
+  }
+}
