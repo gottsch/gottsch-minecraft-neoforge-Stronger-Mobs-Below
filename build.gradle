@@ -30,7 +30,7 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    archivesName = project.archives_base_name
 }
 
 // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
@@ -121,7 +121,7 @@ configurations {
 
 dependencies {
     implementation "gottsch:gottschcore-neoforge:1.21.1-2.5.0"
-    implementation "gottsch:eechelonsapi-neoforge:1.21.1-1.0.0"
+    implementation "gottsch:eechelonsapi-server-neoforge:1.21.1-1.0.0"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

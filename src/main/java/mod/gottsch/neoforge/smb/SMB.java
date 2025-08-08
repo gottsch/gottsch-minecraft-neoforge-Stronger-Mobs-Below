@@ -1,47 +1,42 @@
 /*
- * This file is part of  Stronger Mobs Below.
+ * This file is part of Stronger Mobs Below.
  * Copyright (c) 2025 Mark Gottschling (gottsch)
  *
- * All rights reserved.
- *
  * Stronger Mobs Below is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * it under the terms of the Open Software Licence 3.0.
  *
  * Stronger Mobs Below is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Open Software Licence 3.0 for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Stronger Mobs Below.  If not, see <http://www.gnu.org/licenses/lgpl>.
+ * You should have received a copy of the Open Software Licence
+ * along with Enemy Echelons.  If not, see <https://www.tldrlegal.com/license/open-software-licence-3-0>.
  */
 package mod.gottsch.neoforge.smb;
 
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.core.conversion.ObjectConverter;
 import com.electronwill.nightconfig.core.file.CommentedFileConfig;
-
 import mod.gottsch.neoforge.eechelons.api.EnemyEchelonsApi;
+import mod.gottsch.neoforge.eechelons.core.config.Config;
 import mod.gottsch.neoforge.eechelons.core.config.EchelonConfigsHolder;
 import mod.gottsch.neoforge.eechelons.core.config.NameConfigsHolder;
 import mod.gottsch.neoforge.eechelons.core.registry.DifficultyNameRegistry;
 import mod.gottsch.neoforge.eechelons.core.registry.DifficultyNameRegistryEntry;
 import mod.gottsch.neoforge.smb.core.config.SMBConfig;
-import mod.gottsch.neoforge.eechelons.core.config.Config;
-import mod.gottsch.neoforge.smb.core.setup.CommonSetup;
+import mod.gottsch.neoforge.smb.core.setup.ServerSetup;
 import mod.gottsch.neoforge.smb.core.setup.Registration;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.IConfigSpec;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.ModConfigSpec;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.logging.log4j.LogManager;
@@ -81,8 +76,6 @@ public class SMB {
 		// register the deferred registries
 		Registration.init();
 		// register the server config
-		modContainer.registerConfig(ModConfig.Type.CLIENT, SMBConfig.CLIENT_SPEC, getConfigSubfolder("smb-client.toml").toString());
-		modContainer.registerConfig(ModConfig.Type.COMMON, SMBConfig.COMMON_SPEC, getConfigSubfolder("smb-common.toml").toString());
 		modContainer.registerConfig(ModConfig.Type.SERVER, SMBConfig.SERVER_SPEC, getConfigSubfolder("smb-server.toml").toString());
 
 		// create the default config
@@ -94,7 +87,7 @@ public class SMB {
 				getDifficultyNamingConfigFilename(MOD_CONFIG_VERSION));
 
 		// register 'ModSetup::init' to be called at mod setup time (server and client)
-		eventBus.addListener(CommonSetup::init);
+//		eventBus.addListener(ServerSetup::init);
 		eventBus.addListener(this::onLoadConfig);
 
 		// TODO this will need to be moved to a Client only class - this will be remove from the server only mod version
@@ -142,9 +135,9 @@ public class SMB {
 	 * On a config event.
 	 * @param event
 	 */
-	private void onLoadConfig(final ModConfigEvent event) {
+	private void onLoadConfig(final ModConfigEvent.Loading event) {
 		if (event.getConfig().getModId().equals(MOD_ID)) {
-			if (event.getConfig().getType() == ModConfig.Type.COMMON) {
+			if (event.getConfig().getType() == ModConfig.Type.SERVER) {
 				IConfigSpec spec = event.getConfig().getSpec();
 
 				if (spec == Config.DIFFICULTY_SPEC) {
@@ -158,6 +151,7 @@ public class SMB {
 				}
 			}
 
+			// TODO need to test if this is onLoad event
 			if (event.getConfig().getType() == ModConfig.Type.SERVER) {
 				IConfigSpec spec = event.getConfig().getSpec();
 				// get the toml config data
@@ -218,6 +212,11 @@ public class SMB {
 //					EchelonManager.REGISTRY.register(holder.configs);
 					EnemyEchelonsApi.register(holder.configs);
 				});
+	}
+
+	@SubscribeEvent
+	public void onServerStarting(ServerStartingEvent event) {
+		SMBConfig.instance.addRollingFileAppender(SMB.MOD_ID);
 	}
 
 	private String getConfigFilename(String version) {

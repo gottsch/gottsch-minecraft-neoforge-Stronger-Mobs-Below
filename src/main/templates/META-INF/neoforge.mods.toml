@@ -47,9 +47,12 @@ authors="${mod_authors}" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''${mod_description}'''
 
+# This is crucial for server-side only mods.
+displayTest="IGNORE_SERVER_VERSION"
+
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
-[[mixins]]
-config="${mod_id}.mixins.json"
+#[[mixins]]
+#config="${mod_id}.mixins.json"
 
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
@@ -95,7 +98,7 @@ config="${mod_id}.mixins.json"
     side="SERVER"
 
 [[dependencies.${mod_id}]]
-    modId="eechelonsapi"
+    modId="eechelonsapi_server"
     type="required"
     # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="[1.21.1-1.0.0, 1.21.1-2.0.0]"

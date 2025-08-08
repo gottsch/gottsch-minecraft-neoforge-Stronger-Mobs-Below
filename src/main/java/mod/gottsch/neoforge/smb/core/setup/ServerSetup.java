@@ -15,15 +15,20 @@
  */
 package mod.gottsch.neoforge.smb.core.setup;
 
+import mod.gottsch.neoforge.smb.SMB;
+import mod.gottsch.neoforge.smb.core.config.SMBConfig;
+import net.neoforged.fml.event.lifecycle.FMLDedicatedServerSetupEvent;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
+
 /**
  * 
  * @author Mark Gottschling on Jul 24, 2022
  *
  */
-public class Registration {
+public class ServerSetup {
 
-	public static void init() {
-		
+	public static void init(ServerStartingEvent event) {
+		SMBConfig.instance.addRollingFileAppender(SMB.MOD_ID);
 	}
 
 }

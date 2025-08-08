@@ -1,27 +1,21 @@
 /*
- * This file is part of  Enemy Echelons API.
- * Copyright (c) 2022 Mark Gottschling (gottsch)
+ * This file is part of Stronger Mobs Below.
+ * Copyright (c) 2025 Mark Gottschling (gottsch)
  *
- * All rights reserved.
+ * Stronger Mobs Below is free software: you can redistribute it and/or modify
+ * it under the terms of the Open Software Licence 3.0.
  *
- * Enemy Echelons API is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * Enemy Echelons API is distributed in the hope that it will be useful,
+ * Stronger Mobs Below is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Open Software Licence 3.0 for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Enemy Echelons API.  If not, see <http://www.gnu.org/licenses/lgpl>.
+ * You should have received a copy of the Open Software Licence
+ * along with Enemy Echelons.  If not, see <https://www.tldrlegal.com/license/open-software-licence-3-0>.
  */
 package mod.gottsch.neoforge.smb.core.network;
 
-import mod.gottsch.neoforge.eechelons.EEchelonsApiMod;
 import mod.gottsch.neoforge.eechelons.api.EnemyEchelonsApi;
-import mod.gottsch.neoforge.eechelons.core.data.ModDataAttachements;
 import mod.gottsch.neoforge.smb.SMB;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -64,12 +58,9 @@ public record DifficultyRequestToServer(int entityId, String registryName, Strin
 		if (level != null) {
 			Entity entity = level.getEntity(request.entityId());
 			if (entity != null) {
-//				EEchelons.LOGGER.debug("handling server message to entity -> {} : {}", entity.getName().getString(), entity.getId());
-				if (entity.hasData(ModDataAttachements.DIFFICULTY)) {
-//					EEchelons.LOGGER.debug("entity {} has cap", entity.getId());
+				if (EnemyEchelonsApi.hasDifficulty(entity)) {
 					// send the level back to the client
 					DifficultyMessageToClient message = new DifficultyMessageToClient(entity.getId(), EnemyEchelonsApi.getDifficulty(entity), EnemyEchelonsApi.getDifficultyName(entity).orElse(null));
-//					ModNetwork.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
 					PacketDistributor.sendToPlayersTrackingEntity(entity, message);
 				}
 			}
