@@ -19,9 +19,7 @@
  */
 package mod.gottsch.neoforge.smb.core.network;
 
-import mod.gottsch.neoforge.eechelons.EEchelonsApiMod;
 import mod.gottsch.neoforge.eechelons.api.EnemyEchelonsApi;
-import mod.gottsch.neoforge.eechelons.core.data.ModDataAttachements;
 import mod.gottsch.neoforge.smb.SMB;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -65,11 +63,13 @@ public record DifficultyRequestToServer(int entityId, String registryName, Strin
 			Entity entity = level.getEntity(request.entityId());
 			if (entity != null) {
 //				EEchelons.LOGGER.debug("handling server message to entity -> {} : {}", entity.getName().getString(), entity.getId());
-				if (entity.hasData(ModDataAttachements.DIFFICULTY)) {
+
+				// TODO use API to get
+
+				if (EnemyEchelonsApi.hasDifficulty(entity)) {
 //					EEchelons.LOGGER.debug("entity {} has cap", entity.getId());
 					// send the level back to the client
 					DifficultyMessageToClient message = new DifficultyMessageToClient(entity.getId(), EnemyEchelonsApi.getDifficulty(entity), EnemyEchelonsApi.getDifficultyName(entity).orElse(null));
-//					ModNetwork.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> entity), message);
 					PacketDistributor.sendToPlayersTrackingEntity(entity, message);
 				}
 			}

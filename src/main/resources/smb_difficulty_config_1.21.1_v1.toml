@@ -4,7 +4,7 @@ loadOrder = 0
 # note: order or configs matters, particularly when using blacklists.
 [[configs]]
 	# the unique id of the echelon config
-	id = "strongermobsbelow_server:default"
+	id = "strongermobsbelow:default"
 
 	# list of dimension namedspaced IDs that this echelon config applies to. ie. dimension whitelist
 	dimensions=["minecraft:overworld"]
@@ -87,7 +87,7 @@ loadOrder = 0
 
 	[[configs.echelons]]
 		# optional - the id of the echelon
-		id="strongermobsbelow_server:echelon1"
+		id="strongermobsbelow:echelon1"
 		# the min y-value in the echelon / layer
 		min=60
 		# the max y-value in the echelon / layer
@@ -108,7 +108,7 @@ loadOrder = 0
 			difficulty=3
 			weight=5.0
 	[[configs.echelons]]
-		id="strongermobsbelow_server:echelon2"
+		id="strongermobsbelow:echelon2"
 		min=30
 		max=59
 		[[configs.echelons.histogram]]
@@ -121,7 +121,7 @@ loadOrder = 0
 			difficulty=2
 			weight=100.0
 	[[configs.echelons]]
-		id="strongermobsbelow_server:echelon3"
+		id="strongermobsbelow:echelon3"
 		min=0
 		max=29
 		[[configs.echelons.histogram]]
@@ -137,7 +137,7 @@ loadOrder = 0
 			difficulty=3
 			weight=200.0
 	[[configs.echelons]]
-		id="strongermobsbelow_server:echelon4"
+		id="strongermobsbelow:echelon4"
 		min=-30
 		max=-1
 		[[configs.echelons.histogram]]
@@ -153,7 +153,7 @@ loadOrder = 0
 			difficulty=4
 			weight=120.0
 	[[configs.echelons]]
-		id="strongermobsbelow_server:echelon5"
+		id="strongermobsbelow:echelon5"
 		min=-64
 		max=-31
 		[[configs.echelons.histogram]]
@@ -171,7 +171,7 @@ loadOrder = 0
 
 # this echelon config definition contains a whitelisted creeper, therefore this definition will only apply to creepers in the overworld.
 [[configs]]
-	id="strongermobsbelow_server:creeper"
+	id="strongermobsbelow:creeper"
 	dimensions=["minecraft:overworld"]
 	mobWhitelist=["minecraft:creeper"]
 	hpFactor=0.25
@@ -232,7 +232,7 @@ loadOrder = 0
 # use "." or ".:." or "*" or "*:*" for the dimension
 # by default, this echelon is setup to not provide any modifications, ie mobs remain at vanilla/default levels.
 [[configs]]
-	id="strongermobsbelow_server:catch_all"
+	id="strongermobsbelow:catch_all"
 	dimensions=["."]
 	hpFactor=0.0
 	[[configs.echelons]]

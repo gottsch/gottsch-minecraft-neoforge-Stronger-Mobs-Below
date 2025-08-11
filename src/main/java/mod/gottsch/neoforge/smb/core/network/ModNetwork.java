@@ -5,9 +5,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-// TODO this should move back to EEchelonsAPI and the request and message
-// TODO they should work on just server side since the client thread will never be called.
-
 /**
  * @author by Mark Gottschling on 8/5/2025
  */
@@ -26,9 +23,9 @@ public class ModNetwork {
                 // the handler
                 (payload, context) -> {
                     context.enqueueWork(() -> {
-                        // This code runs on the client thread.
-                        System.out.println("Received entity id: " + payload.entityId());
-                        // TODO finish
+                        // this code runs on the client thread.
+//                        System.out.println("Received entity id: " + payload.entityId());
+                        DifficultyMessageToClient.handler(payload, context);
                     });
                 }
         );
@@ -39,7 +36,7 @@ public class ModNetwork {
                 (payload, context) -> {
                     context.enqueueWork(() -> {
                         // this code runs on the server thread.
-                        System.out.println("requested entity id: " + payload.entityId());
+//                        System.out.println("requested entity id: " + payload.entityId());
                         DifficultyRequestToServer.handler(payload, context);
                     });
                 }

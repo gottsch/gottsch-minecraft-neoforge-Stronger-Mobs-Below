@@ -3,7 +3,7 @@ loadOrder = 1
 # this is an empty config meant for custom/modded mobs.
 [[configs]]
 	# the unique id of the echelon config. change to be unique to your mod. suggestion would be [mod_id]_echelons_config_[mc_version].toml
-	id = "strongermobsbelow_server:custom"
+	id = "strongermobsbelow:custom"
 
 	# an empty dimension list, meaning this will not be applied to anything. update when customizing.
 	dimensions=[]

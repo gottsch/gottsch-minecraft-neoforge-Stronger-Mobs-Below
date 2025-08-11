@@ -67,7 +67,7 @@ import java.util.Objects;
 public class SMB {
 	public static final Logger LOGGER = LogManager.getLogger(SMB.MOD_ID);
 
-	public static final String MOD_ID = "strongermobsbelow_server";
+	public static final String MOD_ID = "strongermobsbelow";
 
 	private static final String MOD_CONFIG_VERSION = "1.21.1_v1";
 	private static final String MOD_SUBFOLDER = "stronger_mobs_below";
@@ -142,11 +142,12 @@ public class SMB {
 	 * On a config event.
 	 * @param event
 	 */
-	private void onLoadConfig(final ModConfigEvent event) {
+	private void onLoadConfig(final ModConfigEvent.Loading event) {
 		if (event.getConfig().getModId().equals(MOD_ID)) {
 			if (event.getConfig().getType() == ModConfig.Type.COMMON) {
 				IConfigSpec spec = event.getConfig().getSpec();
 
+				// TODO remove spec check, but use isNamingLoaded flag instead.
 				if (spec == Config.DIFFICULTY_SPEC) {
 					// get the toml config data
 					CommentedConfig commentedConfig = event.getConfig().getLoadedConfig().config();

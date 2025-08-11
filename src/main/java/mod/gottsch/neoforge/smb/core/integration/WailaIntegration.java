@@ -13,26 +13,43 @@
  * You should have received a copy of the Open Software Licence
  * along with Enemy Echelons.  If not, see <https://www.tldrlegal.com/license/open-software-licence-3-0>.
  */
-package mod.gottsch.neoforge.smb.core.setup;
+package mod.gottsch.neoforge.smb.core.integration;
 
-import mod.gottsch.neoforge.smb.SMB;
+
 import mod.gottsch.neoforge.smb.core.config.SMBConfig;
-import mod.gottsch.neoforge.smb.core.integration.WailaIntegration;
-import mod.gottsch.neoforge.smb.core.network.ModNetwork;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.ModList;
 
 /**
  * 
- * @author Mark Gottschling on Jul 24, 2022
+ * @author Mark Gottschling on Aug 1, 2022
  *
  */
-public class CommonSetup {
+public class WailaIntegration {
+	private static boolean jadeLoaded = false;
+	private static boolean wthitLoaded = false;
+	
+	public static void init() {
+		ModList modList = ModList.get();
 
-	public static void init(FMLCommonSetupEvent event) {
+		if (modList.isLoaded("jade")) {
+			jadeLoaded = true;
+		}
+		else if (modList.isLoaded("wthit")) {
+			wthitLoaded = true;
+		}
+	}
 
-		SMBConfig.instance.addRollingFileAppender(SMB.MOD_ID);
-		WailaIntegration.init();
+	public static boolean isEnabled() {
+		return SMBConfig.CLIENT.enableWailaIntegration.get()
+				&& (jadeLoaded || wthitLoaded);
+	}
+	
+	public static boolean isJadeLoaded() {
+		return jadeLoaded;
+	}
+
+	public static boolean isWthitLoaded() {
+		return wthitLoaded;
 	}
 
 }

@@ -1,19 +1,17 @@
 /*
- * This file is part of  Stronger Mobs Below.
+ * This file is part of Stronger Mobs Below.
  * Copyright (c) 2025 Mark Gottschling (gottsch)
  *
  * Stronger Mobs Below is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * it under the terms of the Open Software Licence 3.0.
  *
  * Stronger Mobs Below is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * Open Software Licence 3.0 for more details.
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Stronger Mobs Below.  If not, see <http://www.gnu.org/licenses/lgpl>.
+ * You should have received a copy of the Open Software Licence
+ * along with Enemy Echelons.  If not, see <https://www.tldrlegal.com/license/open-software-licence-3-0>.
  */
 package mod.gottsch.neoforge.smb.core.config;
 
@@ -28,8 +26,6 @@ import org.apache.commons.lang3.tuple.Pair;
  * @author Mark Gottschling on Jul 25, 2022
  *
  */
-// TODO need to extends the API config
-@EventBusSubscriber(modid = SMB.MOD_ID)
 public final class SMBConfig extends AbstractConfig {
 	public static final String CATEGORY_DIV = "##############################";
 	public static final String UNDERLINE_DIV = "------------------------------";

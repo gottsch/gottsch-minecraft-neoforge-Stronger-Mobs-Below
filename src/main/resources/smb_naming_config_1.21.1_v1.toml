@@ -6,7 +6,7 @@
 # - is also mean that only this one config file is expected by the mod and so all changes must be made within this file.
 # note: order or configs matters, particularly when using wildcards.
 [[nameConfigs]]
-    id = "strongermobsbelow_server:default"
+    id = "strongermobsbelow:default"
     # white/blacklists of mods/mobs to apply this naming config to.
     # use "*" to whitelist all mods.
     modWhiltelist = []
